@@ -1,6 +1,6 @@
 import { launch } from 'puppeteer';
 import fs from 'fs-extra';
-import { SCREENSHOTS_DIR, PDF_DIR } from './consts';
+import { SCREENSHOTS_DIR, PDF_DIR } from '../../consts';
 
 const browse = async ({ url, size }: { url: string, size:[number, number] }): Promise<{ pageCount: number }> => {
   const browser = await launch();
@@ -54,10 +54,9 @@ const browse = async ({ url, size }: { url: string, size:[number, number] }): Pr
       pageCount: wraps.length,
     };
   } catch (ex) {
-    console.log(ex);
-    return {
-      pageCount: 0,
-    };
+    console.log('访问路书失败', ex);
+    
+    throw ex;
   }
 }
 

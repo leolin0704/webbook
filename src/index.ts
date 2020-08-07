@@ -1,22 +1,26 @@
-import browse from './browse';
-import pdf from './pdf';
-import { PDF_DIR, PAGE_SIZE } from './consts';
+import express, { Request, Response } from 'express';
+import http from 'http';
+import { index } from './controller/homeController';
 
-const main = async () => {
-  console.log('Start', new Date());
+const app = express();
 
-  const { pageCount } = await browse({
-    url: 'http://www.raejoy.com/roadbook/fullpage?id=165',
-    size: PAGE_SIZE,
-  });
+const routes = express.Router();
 
-  await pdf({
-    size: PAGE_SIZE,
-    pageCount,
-    fileName: `${PDF_DIR}/roadbook_${new Date().toLocaleTimeString()}.pdf`,
-  });
-  
-  console.log('End', new Date());
-}
+routes.get('/pdf', index);
 
-main();
+routes.all('*', (req: Request, res: Response) => {
+    res.status(404).send();
+});
+
+app.use(routes);
+
+app.use((err: Error, req: Request, res: Response) => {
+    console.error('异常:', err);
+    res.status(500).send(err);
+ });
+
+const port = 9527;
+
+http.createServer(app).listen(port, () => {
+    console.log('Server start at', port);
+})
