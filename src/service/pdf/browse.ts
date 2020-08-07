@@ -9,7 +9,10 @@ const browse = async ({
   size: [number, number];
   dir: string;
 }): Promise<{ pageCount: number }> => {
-  const browser = await launch();
+  const browser = await launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
 
   try {
     console.log("browser lauched");
