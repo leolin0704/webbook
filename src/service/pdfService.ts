@@ -1,12 +1,18 @@
 import browse from './pdf/browse';
+import path from 'path';
+import fs from 'fs-extra';
 import pdf from './pdf/pdf';
-import { PDF_DIR, PAGE_SIZE } from '../consts';
+import { PAGE_SIZE, SCREENSHOTS_DIR_BASE } from '../consts';
 
 const getPdf = async (url: string, destination: any) => {
   console.log('Start', new Date());
 
+  const screenshotsDir = path.join(SCREENSHOTS_DIR_BASE, `${new Date().getTime()}_${Math.random()}`);
+  await fs.ensureDir(screenshotsDir);
+
   const { pageCount } = await browse({
     url,
+    dir: screenshotsDir,
     size: PAGE_SIZE,
   });
 
@@ -15,12 +21,14 @@ const getPdf = async (url: string, destination: any) => {
       {
         size: PAGE_SIZE,
         pageCount,
-        fileName: `${PDF_DIR}/roadbook_${new Date().toLocaleTimeString()}.pdf`,
+        dir: screenshotsDir,
       });
   }
 
   console.log('End', new Date());
 
+  fs.remove(screenshotsDir);
+  
   return pageCount > 0;
 }
 

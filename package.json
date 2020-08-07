@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "start": "pm2 start ./dist/index.js"
+    "restart": "pm2 stop roadbook && pm2 start ./dist/index.js --name roadbook",
+    "start": " pm2 start ./dist/index.js --name roadbook"
   },
   "author": "",
   "license": "ISC",

@@ -1,8 +1,6 @@
 import PDFDocument from 'pdfkit';
 
-import { SCREENSHOTS_DIR, PDF_DIR } from '../../consts';
-
-const generatePdf = (destination:any, { size, pageCount, fileName }: { size: [number, number], pageCount: number; fileName: string }) => {
+const generatePdf = (destination:any, { size, pageCount, dir }: { size: [number, number], pageCount: number, dir: string }) => {
   
   try {
     // Create a document
@@ -15,7 +13,7 @@ const generatePdf = (destination:any, { size, pageCount, fileName }: { size: [nu
     // See below for browser usage
     doc.pipe(destination);
 
-    doc.image(`${SCREENSHOTS_DIR}/0.png`, {
+    doc.image(`${dir}/0.png`, {
       fit: size,
       align: 'center',
       valign: 'center'
@@ -25,7 +23,7 @@ const generatePdf = (destination:any, { size, pageCount, fileName }: { size: [nu
       doc.addPage({
         margin: 0,
         size: size,
-      }).image(`${SCREENSHOTS_DIR}/${index}.png`, {
+      }).image(`${dir}/${index}.png`, {
         fit: size,
         align: 'center',
         valign: 'center'

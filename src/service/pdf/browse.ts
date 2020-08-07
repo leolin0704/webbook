@@ -1,13 +1,10 @@
 import { launch } from 'puppeteer';
-import fs from 'fs-extra';
-import { SCREENSHOTS_DIR, PDF_DIR } from '../../consts';
 
-const browse = async ({ url, size }: { url: string, size:[number, number] }): Promise<{ pageCount: number }> => {
+const browse = async ({ url, size, dir }: { url: string, size:[number, number], dir: string }): Promise<{ pageCount: number }> => {
   const browser = await launch();
 
   try {
-    await fs.ensureDir(SCREENSHOTS_DIR);
-    await fs.ensureDir(PDF_DIR);
+
 
     console.log('browser lauched');
     const page = await browser.newPage();
@@ -34,7 +31,7 @@ const browse = async ({ url, size }: { url: string, size:[number, number] }): Pr
       const element = wraps[index];
 
       await element.screenshot({
-        path: `./screenshots/${index}.png`,
+        path: `./${dir}/${index}.png`,
         type: 'png',
       });
 
