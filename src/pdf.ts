@@ -1,19 +1,21 @@
 import PDFDocument from 'pdfkit';
 import fs from 'fs';
 
-const generatePdf = ({pageCount, fileName}:{pageCount:number;fileName:string}) => {
+import { SCREENSHOTS_DIR, PDF_DIR } from './consts';
+
+const generatePdf = ({ size, pageCount, fileName }: { size: [number, number], pageCount: number; fileName: string }) => {
   // Create a document
   const doc = new PDFDocument({
     margin: 0,
-    size: [2256, 3024]
+    size,
   });
 
   // Pipe its output somewhere, like to a file or HTTP response
   // See below for browser usage
   doc.pipe(fs.createWriteStream(fileName));
 
-  doc.image('./screenshots/0.png', {  
-    fit: [2256, 3024],
+  doc.image(`${SCREENSHOTS_DIR}/0.png`, {
+    fit: size,
     align: 'center',
     valign: 'center'
   });
@@ -21,9 +23,9 @@ const generatePdf = ({pageCount, fileName}:{pageCount:number;fileName:string}) =
   for (let index = 1; index < pageCount; index++) {
     doc.addPage({
       margin: 0,
-      size: [2256, 3024]
-    }).image(`./screenshots/${index}.png`, {  
-      fit: [2256, 3024],
+      size: size,
+    }).image(`${SCREENSHOTS_DIR}/${index}.png`, {
+      fit: size,
       align: 'center',
       valign: 'center'
     });
