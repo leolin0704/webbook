@@ -45,12 +45,6 @@ const browse = async ({
       });
 
       console.log(`screenshot ${index} finished`);
-
-      await page.evaluate((_x, _y) => {
-        window.scrollTo(0, _y + 3024);
-      });
-
-      console.log(`scroll to next`);
     }
 
     console.log("screenshot finished");

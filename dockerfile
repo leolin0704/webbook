@@ -1,4 +1,4 @@
-FROM node:12.18.3-slim
+FROM node:12.18.3-buster
 
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
 
