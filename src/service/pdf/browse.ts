@@ -61,8 +61,9 @@ const browse = async ({
     };
   } catch (ex) {
     console.log("访问路书失败", ex);
-
     throw ex;
+  } finally {
+    browser.close();
   }
 };
 
