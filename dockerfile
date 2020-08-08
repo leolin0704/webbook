@@ -13,8 +13,8 @@ WORKDIR /work
 
 RUN npm install puppeteer@5.2.1 --unsafe-perm=true --allow-root
 
-COPY package*.json ./
-COPY npm install
+COPY package*.json /work
+RUN npm install
 
 COPY . /work
 
