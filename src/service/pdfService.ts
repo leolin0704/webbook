@@ -4,7 +4,7 @@ import fs from "fs-extra";
 import pdf from "./pdf/pdf";
 import { PAGE_SIZE, SCREENSHOTS_DIR_BASE } from "../consts";
 
-const getPdf = async (url: string): Promise<boolean> => {
+const getPdf = async (url: string, destination: any): Promise<boolean> => {
   console.log("Start", new Date());
 
   const screenshotsDir = path.join(
@@ -24,6 +24,7 @@ const getPdf = async (url: string): Promise<boolean> => {
       size: PAGE_SIZE,
       pageCount,
       dir: screenshotsDir,
+      destination,
     });
   }
 

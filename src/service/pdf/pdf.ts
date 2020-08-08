@@ -5,10 +5,12 @@ const generatePdf = ({
   size,
   pageCount,
   dir,
+  destination
 }: {
   size: [number, number];
   pageCount: number;
   dir: string;
+  destination: any;
 }): void => {
   try {
     // Create a document
@@ -19,7 +21,7 @@ const generatePdf = ({
 
     // Pipe its output somewhere, like to a file or HTTP response
     // See below for browser usage
-    doc.pipe(fs.createWriteStream(`${dir}/roadbook.pdf`));
+    doc.pipe(destination);
 
     doc.image(`${dir}/0.png`, {
       fit: size,

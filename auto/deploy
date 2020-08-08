@@ -1,0 +1,9 @@
+#!/bin/bash -eu
+
+git pull
+
+./auto/build
+
+docker stop raodbook
+
+./auto/run

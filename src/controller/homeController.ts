@@ -10,12 +10,10 @@ const index = async (req: Request, res: Response): Promise<void> => {
 
     console.log("pdf request received url:", url);
 
-    const result = await getPdf(url);
+    const result = await getPdf(url, res);
 
     if (!result) {
       res.status(500).json({ error: "没有页面需要生成" });
-    } else {
-      res.status(200).end();
     }
   } catch (ex) {
     console.log("err:", ex);

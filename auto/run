@@ -1,3 +1,3 @@
 #!/bin/bash -eu
 
-docker run -v "${PWD}"/screenshots:/work/screenshots -p 9527:9527 --mount source=/var/nginx/conf,target=/etc/nginx/conf --network host roadbook:1.0.0
+docker run -v "${PWD}"/screenshots:/work/screenshots -p 9527:9527 --mount source=/var/nginx/conf,target=/etc/nginx/conf --name "raodbook" --network host roadbook:1.0.0
