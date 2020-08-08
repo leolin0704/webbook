@@ -1,4 +1,19 @@
-import { launch } from "puppeteer";
+import { launch, Browser } from "puppeteer";
+
+let browser: Browser;
+
+const getBrowser = async (): Promise<Browser> => {
+  if (!browser || !browser.isConnected()) {
+    console.log("browser lauched");
+
+    browser = await launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+  }
+
+  return browser;
+};
 
 const browse = async ({
   url,
@@ -9,13 +24,9 @@ const browse = async ({
   size: [number, number];
   dir: string;
 }): Promise<{ pageCount: number }> => {
-  const browser = await launch({
-    headless: true,
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
-
   try {
-    console.log("browser lauched");
+    const browser = await getBrowser();
+
     const page = await browser.newPage();
 
     await page.goto(url, {
@@ -48,7 +59,7 @@ const browse = async ({
     }
 
     console.log("screenshot finished");
-    browser.close();
+    page.close();
 
     return {
       pageCount: wraps.length,
@@ -56,8 +67,6 @@ const browse = async ({
   } catch (ex) {
     console.log("访问路书失败", ex);
     throw ex;
-  } finally {
-    browser.close();
   }
 };
 

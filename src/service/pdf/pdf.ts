@@ -1,13 +1,15 @@
 import PDFDocument from "pdfkit";
+import fs from "fs";
 
-const generatePdf = (
-  destination: any,
-  {
-    size,
-    pageCount,
-    dir,
-  }: { size: [number, number]; pageCount: number; dir: string }
-): void => {
+const generatePdf = ({
+  size,
+  pageCount,
+  dir,
+}: {
+  size: [number, number];
+  pageCount: number;
+  dir: string;
+}): void => {
   try {
     // Create a document
     const doc = new PDFDocument({
@@ -17,7 +19,7 @@ const generatePdf = (
 
     // Pipe its output somewhere, like to a file or HTTP response
     // See below for browser usage
-    doc.pipe(destination);
+    doc.pipe(fs.createWriteStream(`${dir}/roadbook.pdf`));
 
     doc.image(`${dir}/0.png`, {
       fit: size,
