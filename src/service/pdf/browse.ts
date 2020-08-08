@@ -41,7 +41,7 @@ const browse = async ({
 
     await page.setViewport({
       width: size[0],
-      height: size[1] * wraps.length,
+      height: size[1],
       deviceScaleFactor: 1,
     });
 
@@ -56,6 +56,12 @@ const browse = async ({
       });
 
       console.log(`screenshot ${index} finished`);
+
+      await page.evaluate((_x, _y) => {
+        window.scrollTo(0, _y + 3024);
+      });
+
+      console.log(`scroll to next`);
     }
 
     console.log("screenshot finished");
