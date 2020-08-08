@@ -11,10 +11,12 @@ RUN apt-get update \
 
 WORKDIR /work
 
-COPY . /work
+RUN npm install puppeteer@5.2.1 --unsafe-perm=true --allow-root
 
-RUN npm install
-RUN npm install puppeteer --unsafe-perm=true --allow-root
+COPY package*.json ./
+COPY npm install
+
+COPY . /work
 
 RUN npm run build
 EXPOSE 9527
