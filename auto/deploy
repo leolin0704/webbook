@@ -5,5 +5,6 @@ git pull
 ./auto/build
 
 docker stop raodbook
+docker container rm raodbook 
 
 ./auto/run
