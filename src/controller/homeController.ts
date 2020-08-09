@@ -29,7 +29,7 @@ const index = async (req: Request, res: Response): Promise<void> => {
     const result = await getPdf(url, res);
 
     if (!result) {
-      res.status(405).json({ message: "没有页面需要生成" });
+      res.status(400).json({ message: "没有页面需要生成" });
     }
   } catch (ex) {
     console.log("err:", ex);
