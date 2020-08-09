@@ -24,11 +24,9 @@ const browse = async ({
   size: [number, number];
   dir: string;
 }): Promise<{ pageCount: number }> => {
-  try {
     const browser = await getBrowser();
-
     const page = await browser.newPage();
-
+  try {
     await page.goto(url, {
       timeout: 60 * 10 * 1000,
       waitUntil: "networkidle0",
@@ -65,7 +63,7 @@ const browse = async ({
     }
 
     console.log("screenshot finished");
-    page.close();
+    
 
     return {
       pageCount: wraps.length,
@@ -73,6 +71,12 @@ const browse = async ({
   } catch (ex) {
     console.log("访问路书失败", ex);
     throw ex;
+  } finally {
+    try {
+      page.close();
+    }catch {
+
+    }
   }
 };
 
