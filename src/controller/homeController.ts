@@ -46,28 +46,28 @@ export const images = async (req: Request, res: Response): Promise<void> => {
   const { query } = req;
 
   const url = query["url"] as string;
-  const path = query["path"] as string;
+  const bookId = query["bookId"] as string;
 
   console.log("pdf request received url:", url);
-  console.log("pdf request received path:", path);
+  console.log("pdf request received bookId:", bookId);
 
   if (!url || url.length === 0) {
     res.status(500).json({ message: "缺少参数url" });
     return;
   }
 
-  if (!path || path.length === 0) {
-    res.status(500).json({ message: "缺少参数path" });
+  if (!bookId || bookId.length === 0) {
+    res.status(500).json({ message: "缺少参数bookId" });
     return;
   }
 
   try {
-    const result = await generateImages(url, path);
+    const result = await generateImages(url, bookId);
 
     if (!result) {
       res.status(400).json({ message: "没有页面需要生成" });
     }else{
-      res.status(200).json({ path });
+      res.status(200).json({ bookId });
     }
   } catch (ex) {
     console.log("err:", ex);
