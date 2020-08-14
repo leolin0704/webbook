@@ -1,12 +1,13 @@
 import express, { Request, Response } from "express";
 import http from "http";
-import { index } from "./controller/homeController";
+import { index, images } from "./controller/homeController";
 
 const app = express();
 
 const routes = express.Router();
 
 routes.get("/pdf", index);
+routes.get("/images", images);
 
 routes.all("*", (req: Request, res: Response) => {
   res.status(404).send();

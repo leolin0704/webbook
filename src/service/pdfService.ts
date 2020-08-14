@@ -4,8 +4,8 @@ import fs from "fs-extra";
 import pdf from "./pdf/pdf";
 import { PAGE_SIZE, SCREENSHOTS_DIR_BASE } from "../consts";
 
-const getPdf = async (url: string, destination: any): Promise<boolean> => {
-  console.log("Start", new Date());
+export const getPdf = async (url: string, destination: any): Promise<boolean> => {
+  console.log("Start getPdf", new Date());
 
   const screenshotsDir = path.join(
     SCREENSHOTS_DIR_BASE,
@@ -28,11 +28,26 @@ const getPdf = async (url: string, destination: any): Promise<boolean> => {
     });
   }
 
-  console.log("End", new Date());
+  console.log("End getPdf", new Date());
 
-  // fs.remove(screenshotsDir);
+  fs.remove(screenshotsDir);
 
   return pageCount > 0;
 };
 
-export default getPdf;
+
+export const generateImages = async (url: string, path: string): Promise<boolean> => {
+  console.log("Start generateImages", new Date());
+
+  await fs.ensureDir(path);
+
+  const { pageCount } = await browse({
+    url,
+    dir: path,
+    size: PAGE_SIZE,
+  });
+
+  console.log("End generateImages", new Date());
+
+  return pageCount > 0;
+};

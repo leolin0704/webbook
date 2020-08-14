@@ -49,7 +49,7 @@ const browse = async ({
       const element = wraps[index];
 
       await element.screenshot({
-        path: `./${dir}/${index}.png`,
+        path: `${dir}/${index}.png`,
         type: "png",
       });
 
