@@ -1,3 +1,3 @@
 #!/bin/bash -eu
 
-docker run -v "${PWD}"/screenshots:/work/screenshots -p 9527:9527 --name "raodbook" --network host roadbook:1.0.0
+docker run -v /usr/project-data/yuejie/storage/images:/usr/project-data/yuejie/storage/images -p 9527:9527 --name "raodbook" --network host roadbook:1.0.0
