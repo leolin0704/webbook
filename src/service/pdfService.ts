@@ -39,6 +39,11 @@ export const getPdf = async (url: string, destination: any): Promise<boolean> =>
 export const generateImages = async (url: string, bookId: string): Promise<boolean> => {
   console.log("Start generateImages", new Date());
   const realPath= path.join(SCREENSHOTS_DIR_BASE, "roadbook", bookId);
+
+  if(await fs.existsSync(realPath)) {
+    await  fs.removeSync(realPath);
+  }
+ 
   await fs.ensureDir(realPath);
   console.log("ensureDir for generateImages", realPath);
   const { pageCount } = await browse({
