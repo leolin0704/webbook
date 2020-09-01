@@ -34,11 +34,12 @@ RUN yum groupinstall -y "fonts"
 RUN yum update nss -y
 
 WORKDIR /work
+RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
 
-RUN npm install puppeteer@5.2.1 --unsafe-perm=true --allow-root
+RUN cnpm install puppeteer@5.2.1 --unsafe-perm=true --allow-root
 
 COPY package*.json /work/
-RUN npm install
+RUN cnpm install
 
 COPY . /work
 
