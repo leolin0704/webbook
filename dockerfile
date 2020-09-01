@@ -29,6 +29,8 @@ xorg-x11-fonts-misc \
 xorg-x11-fonts-Type1 \
 xorg-x11-utils
 
+RUN yum groupinstall -y "fonts"
+
 RUN yum update nss -y
 
 WORKDIR /work
